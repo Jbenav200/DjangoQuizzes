@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Stop PyCharm being shit
+.idea
+.idea*
+.idea/**
+.idea/**/
