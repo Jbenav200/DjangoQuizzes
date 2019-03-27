@@ -1,20 +1,29 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
     return render(request, 'quiz/home.html')
 
 
-def user_home(request):
-    return render(request, 'quiz/user_home.html', {'title': 'Home'})
+def about(request):
+    return render(request, 'quiz/about.html', {'title': 'About'})
 
 
-def report(request):
-    return render(request, 'quiz/report.html', {'title': 'Report'})
+@login_required
+def quizzes(request):
+    return render(request, 'quiz/quizzes.html', {'title': 'Quizzes'})
 
 
-def questions(request):
-    return render(request, 'quiz/questions.html', {'title': 'Questions'})
+@login_required
+def results(request):
+    return render(request, 'quiz/results.html', {'title': 'Results'})
+
+
+@login_required
+def ranking_table(request):
+    return render(request, 'quiz/ranking_table.html', {'title': 'Ranking Table'})
+
 
 # GET -> asks for stuff
 # POST -> sends you stuff
