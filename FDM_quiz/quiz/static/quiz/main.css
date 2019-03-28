@@ -28,6 +28,10 @@ ul {
   font-weight: 500;
 }
 
+.logo-img {
+    margin-bottom: 12px;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
@@ -47,6 +51,8 @@ a.article-title:hover {
 
 .article-content {
   white-space: pre-line;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .article-img {

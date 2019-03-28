@@ -25,7 +25,9 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'quiz-home' %}">FDM Group</a>
+          <a class="navbar-brand mr-4" href="{% url 'quiz-home' %}">
+            <img class="logo-img" src="{% static 'quiz/FDM_logo.gif' %}" width="85" height="30" alt="FDM Group">
+          </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
