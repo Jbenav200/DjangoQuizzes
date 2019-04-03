@@ -1,4 +1,24 @@
 {% extends "quiz/base.html" %}
 {% block content %}
-    <h1>results!</h1>
+    <table class="results">
+        <thead>
+            Results
+        </thead>
+       <tr>
+           <th>User</th>
+           <th>Category</th>
+           <th>Score</th>
+       </tr>
+        {% for u in users_list %}
+            {% if username == u %}
+            {% for c in category_list %}
+            <tr>
+                <td>{{ u.username }}</td>
+                <td>{{ c.category }}/td>
+                <td>{{ u.score }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </table>
 {% endblock content %}
