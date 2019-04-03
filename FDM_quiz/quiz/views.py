@@ -15,14 +15,10 @@ def about(request):
 
 @login_required
 def quizzes(request):
-    questions_list = Question.objects.order_by('question_text')
-    choices_list = Choice.objects.order_by('question')
     categories_list = Category.objects.order_by('name')
-    template = loader.get_template('quiz/questions.html')
+    template = loader.get_template('quiz/quizzes.html')
     context = {
-        'questions_list': questions_list,
-        'title': "Questions",
-        'choices_list': choices_list,
+        'title': "Quizzes",
         'categories_list': categories_list,
 
     }
@@ -34,13 +30,12 @@ def quizzes(request):
 def results(request):
     category_list = Category.objects.order_by('name')
     user_list = User.objects.order_by('username')
-    from FDM_quiz import users
-    username = users.models.User.return_username()
-    template = loader.get_template("quiz/reports.html")
+    username = "test"
+    template = loader.get_template("quiz/results.html")
     context = {
         'category_list': category_list,
         'user_list': user_list,
-        'title': "Report",
+        'title': "Results",
         'username': username,
     }
     return HttpResponse(template.render(context, request))
@@ -51,6 +46,44 @@ def results(request):
 def ranking_table(request):
     return render(request, 'quiz/ranking_table.html', {'title': 'Ranking Table'})
 
+
+@login_required
+def art(request):
+    questions_list = Question.objects.filter(category=2)
+    choice_list = Choice.objects.order_by('question')
+    template = loader.get_template('quiz/art.html')
+    context = {
+        'title': "Art",
+        'questions_list': questions_list,
+        'choice_list': choice_list,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def history(request):
+    questions_list = Question.objects.filter(category=1)
+    choice_list = Choice.objects.order_by('question')
+    context = {
+        'title': 'History',
+        'questions_list': questions_list,
+        'choice_list': choice_list,
+    }
+    template = loader.get_template('quiz/history.html')
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def books(request):
+    questions_list = Question.objects.filter(category=3)
+    choice_list = Choice.objects.order_by('question')
+    context = {
+        'title': 'Books',
+        'questions_list': questions_list,
+        'choice_list': choice_list,
+    }
+    template = loader.get_template('quiz/books.html')
+    return HttpResponse(template.render(context, request))
 
 # GET -> asks for stuff
 # POST -> sends you stuff

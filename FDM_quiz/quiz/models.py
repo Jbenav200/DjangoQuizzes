@@ -22,6 +22,9 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
+    def return_category(self):
+        return self.category
+
 
 # Choice model
 class Choice(models.Model):
@@ -41,4 +44,3 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
-
