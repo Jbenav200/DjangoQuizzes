@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 from .models import *
+from .forms import *
 
 
 def home(request):
@@ -39,7 +40,6 @@ def results(request):
         'username': username,
     }
     return HttpResponse(template.render(context, request))
-    # return render(request, 'quiz/results.html', {'title': 'Results'}) (idk what you do with your returns but try work my one in as well)
 
 
 @login_required
@@ -50,13 +50,26 @@ def ranking_table(request):
 @login_required
 def art(request):
     questions_list = Question.objects.filter(category=2)
-    choice_list = Choice.objects.order_by('question')
+    choice_list = Choice.objects.all()
     template = loader.get_template('quiz/art.html')
+    form = ArtQuestionsForm(request.POST)
     context = {
-        'title': "Art",
-        'questions_list': questions_list,
-        'choice_list': choice_list,
+        'choices_list': choice_list,
+        'form': form
     }
+    if request.method == 'POST':
+        form = ArtQuestionsForm(request.POST)
+        if form.is_valid():
+            answer = form.cleaned_data.get('answer')
+            score = 0
+            if answer == questions_list.answer:
+                score += 10
+                return redirect('results')
+            else:
+                return redirect('home')
+        else:
+            form = ArtQuestionsForm()
+        return render(request, template, {'form': form})
     return HttpResponse(template.render(context, request))
 
 
