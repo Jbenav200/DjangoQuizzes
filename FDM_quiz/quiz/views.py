@@ -34,10 +34,12 @@ def ranking_table(request):
 
 @login_required
 def art(request):
+    username = user.username
     questions_list = Question.objects.filter(category=2)
     choice_list = Choice.objects.all()
     template = loader.get_template('quiz/art.html')
-    form = ArtQuestionsForm(request.POST, instance=request.user)
+    form = ArtQuestionsForm(request.POST)
+    category = 'Art'
     context = {
         'questions_list': questions_list,
         'choices_list': choice_list,
@@ -51,6 +53,8 @@ def art(request):
             # user_score to be placed here
             if answer == questions_list.correct_answer:
                 score += 10
+                user_score = UserScore(username, category, score)
+                user_score.save()
                 return redirect('results')
             else:
                 return redirect('home')
