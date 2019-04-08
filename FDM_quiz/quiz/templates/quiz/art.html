@@ -5,20 +5,7 @@
        <form method="POST">
           {% csrf_token %}
            <fieldset class="form-group">
-               <h3 class="center-text">Let the Questions Begin</h3>
-
-               {% for q in questions_list %}
-               <label>{{ q }}</label>
-               <br/>
-               <select label="{{ q }}">
-                   {% for c in choices_list %}
-                    {% if c.question == q %}
-                        <option name="{{ q }}" value="{{ c }}">{{ c }}</option>
-                    {% endif %}
-                {% endfor %}
-               </select>
-               <br/>
-               {% endfor %}
+               {{ form|crispy }}
            </fieldset>
            <div class="form-group">
                <input class="btn btn-success" type="submit" value="Submit" />

@@ -2,7 +2,7 @@
 {% block content %}
     <table class="results">
         <thead>
-            Results
+            <h2>Results</h2>
         </thead>
        <tr>
            <th>User</th>
@@ -10,11 +10,15 @@
            <th>Score</th>
        </tr>
         {% if user.is_authenticated %}
-            <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ c.category }}</td>
-                <td>{{ u.score }}</td>
-            </tr>
+            {% for score in score_list %}
+                {% if user.username == score.username %}
+                    <tr>
+                        <td>{{ score.username }}</td>
+                        <td>{{ score.category }}</td>
+                        <td>{{ score.score }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
         {% endif %}
     </table>
 {% endblock content %}
