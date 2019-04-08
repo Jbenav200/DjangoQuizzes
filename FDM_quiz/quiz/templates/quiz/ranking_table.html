@@ -1,18 +1,22 @@
 {% extends "quiz/base.html" %}
 {% block content %}
-    <h1>ranking table</h1>
-    {% if user.is_authenticated %}
-    <table>
-        <tr>
-            <thead>User</thead>
-        <thead>Category</thead>
-        <thead>Score</thead>
-        </tr>
-        <tr>
-            <td>{{ user.username }}</td>
-            <td>{{ category }}</td>
-            <td>{{ score }}</td>
-        </tr>
+    <table class="results">
+        <thead>
+            <h2>{{ title }}</h2>
+        </thead>
+       <tr>
+           <th>User</th>
+           <th>Category</th>
+           <th>Score</th>
+       </tr>
+        {% if user.is_authenticated %}
+            {% for score in score_list %}
+                <tr>
+                    <td>{{ score.username }}</td>
+                    <td>{{ score.category }}</td>
+                    <td>{{ score.score }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     </table>
-    {% endif %}
 {% endblock content %}

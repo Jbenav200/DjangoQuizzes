@@ -29,7 +29,13 @@ def quizzes(request):
 
 @login_required
 def ranking_table(request):
-    return render(request, 'quiz/ranking_table.html', {'title': 'Ranking Table'})
+    score_list = UserScore.objects.order_by('score')
+    context ={
+        'score_list': score_list,
+        'title': 'Ranking Table'
+    }
+    template = loader.get_template('quiz/ranking_table.html')
+    return HttpResponse(template.render(context, request))
 
 
 @login_required
