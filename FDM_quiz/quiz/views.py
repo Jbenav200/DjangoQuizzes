@@ -40,60 +40,105 @@ def ranking_table(request):
 
 @login_required
 def art(request):
-    questions_list = Question.objects.filter(category=2)
-    choice_list = Choice.objects.all()
-    template = loader.get_template('quiz/art.html')
-    form = ArtQuestionsForm(questions_list)
-    category = 'Art'
+    form = UserScoreArtForm(request.POST)
     context = {
-        'questions_list': questions_list,
-        'choices_list': choice_list,
         'form': form
     }
+
     if request.method == 'POST':
-        form = ArtQuestionsForm(request.POST)
+        form = UserScoreArtForm(request.POST)
         if form.is_valid():
-            ml = form.cleaned_data.get('ml')
-            vg = form.cleaned_data.get('vg')
+            ml = form.cleaned_data['ml']
+            vg = form.cleaned_data['vg']
+            form.instance.ml = ml
+            form.instance.vg = vg
             # user_score to be placed here
-            if ml == 7 and vg == 10:
-                username = User.objects.filter(user__username=request.user.username)
-                user_score = UserScore()
-                user_score.username = username
-                user_score.category = category
-                user_score.score += 20
-                user_score.save()
-                return redirect('results')
+            if ml:
+                if vg:
+                    username = request.user.username
+                    score = 20
+                    a = UserScore()
+                    a.username = username
+                    categories = Category.objects.filter(name='Art')
+                    for c in categories:
+                        a.category = c
+                    a.score = score
+                    a.save()
+                    return redirect('/results')
+                else:
+                    return redirect('/ranking')
             else:
-                return redirect('home')
-        return HttpResponse(template.render(context, request))
-    return HttpResponse(template.render(context, request))
+                return redirect('/')
+        else:
+            return redirect('/quizzes/art')
+    return render(request, 'quiz/art.html', context)
 
 
 @login_required
 def history(request):
-    questions_list = Question.objects.filter(category=1)
-    choices_list = Choice.objects.all()
+    form = UserScoreHistoryForm(request.POST)
     context = {
-        'title': 'History',
-        'questions_list': questions_list,
-        'choices_list': choices_list,
+        'form': form,
     }
-    template = loader.get_template('quiz/history.html')
-    return HttpResponse(template.render(context, request))
+
+    if request.method == 'POST':
+        form = UserScoreHistoryForm(request.POST)
+        if form.is_valid():
+            w2 = form.cleaned_data['w2']
+            w1 = form.cleaned_data['w1']
+            form.instance.mw2 = w2
+            form.instance.w1 = w1
+            # user_score to be placed here
+            if w2:
+                if w1:
+                    username = request.user.username
+                    score = 20
+                    a = UserScore()
+                    a.username = username
+                    categories = Category.objects.filter(name='History')
+                    for c in categories:
+                        a.category = c
+                    a.score = score
+                    a.save()
+                    return redirect('/results')
+                else:
+                    return redirect('/ranking')
+            else:
+                return redirect('/')
+        else:
+            return redirect('/quizzes/history')
+    return render(request, 'quiz/history.html', context)
 
 
 @login_required
 def books(request):
-    questions_list = Question.objects.filter(category=3)
-    choice_list = Choice.objects.all()
+    form = UserScoreBooksForm(request.POST)
     context = {
-        'title': 'Books',
-        'questions_list': questions_list,
-        'choices_list': choice_list,
+        'form': form,
     }
-    template = loader.get_template('quiz/books.html')
-    return HttpResponse(template.render(context, request))
+
+    if request.method == 'POST':
+        form = UserScoreBooksForm(request.POST)
+        if form.is_valid():
+            hp = form.cleaned_data['hp']
+            wp = form.cleaned_data['wp']
+            form.instance.hp = hp
+            form.instance.wp = wp
+            if hp:
+                if wp:
+                    username = request.user.username
+                    score = 20
+                    a = UserScore()
+                    a.username = username
+                    categories = Category.objects.filter(name='Books')
+                    for c in categories:
+                        a.category = c
+                    a.score = score
+                    a.save()
+                    return redirect('/results')
+            return redirect('/results')
+        return redirect('/quizzes/books')
+    return render(request, 'quiz/books.html', context)
 
 
 @login_required

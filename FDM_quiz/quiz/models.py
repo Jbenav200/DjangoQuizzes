@@ -1,10 +1,14 @@
 from django.db import models
+from django.forms import ModelForm, forms
+from django.template.backends import django
+
 from .models import *
 
 
 # Create your models here.
 # Category model
 class Category(models.Model):
+    id = models.IntegerField(primary_key=1, auto_created=1)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
 
@@ -50,6 +54,7 @@ class User(models.Model):
 
 
 class UserScore(models.Model):
+    id = models.IntegerField(primary_key=1, auto_created=1)
     username = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     score = models.IntegerField()
@@ -62,3 +67,4 @@ class UserScore(models.Model):
 
     def __score__(self):
         return self.score
+
