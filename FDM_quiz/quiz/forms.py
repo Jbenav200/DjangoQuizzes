@@ -7,11 +7,7 @@ class ArtQuestionsForm(forms.Form):
     choice_list = Choice.objects.none()
 
     for q in question_list:
-        question = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id))
+        quest = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
 
-    def __init__(self, question):
+    def __init__(self, quest):
             super(ArtQuestionsForm, self).__init__()
-            question_list = Question.objects.filter(category=2)
-            for q in question_list:
-                self.fields['question'].label = q
-                self.fields['question'].queryset = Choice.objects.filter(question_id=q.id)

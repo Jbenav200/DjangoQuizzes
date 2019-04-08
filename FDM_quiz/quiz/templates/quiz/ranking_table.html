@@ -1,4 +1,18 @@
 {% extends "quiz/base.html" %}
 {% block content %}
     <h1>ranking table</h1>
+    {% if user.is_authenticated %}
+    <table>
+        <tr>
+            <thead>User</thead>
+        <thead>Category</thead>
+        <thead>Score</thead>
+        </tr>
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ category }}</td>
+            <td>{{ score }}</td>
+        </tr>
+    </table>
+    {% endif %}
 {% endblock content %}

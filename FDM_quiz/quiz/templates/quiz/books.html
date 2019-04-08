@@ -3,23 +3,24 @@
     <h2> {{ title }}</h2>
     {% if questions_list %}
        <form action="POST">
-        <header>
-            <h3 class="center-text">Let the Questions Begin</h3>
-        </header>
-        <body>
-            {% for q in questions_list %}
-                <br>
-                <label class="center-text">{{ q.question_text }}</label>
-                <br/>
-                {% for c in choice_list %}
+        <fieldset class="form-group">
+               <h3 class="center-text">Let the Questions Begin</h3>
+               {% for q in questions_list %}
+               <label>{{ q }}</label>
+               <br/>
+               <select label="{{ q }}">
+                   {% for c in choices_list %}
                     {% if c.question == q %}
-                    <input type="radio" name="{{ q }}" value="{{ c.choice_text }}">
-                    <label>{{ c.choice_text }}</label>
-                    <br/>
+                        <option name="{{ q }}" value="{{ c }}">{{ c }}</option>
                     {% endif %}
                 {% endfor %}
-            {% endfor %}
-        </body>
+               </select>
+               <br/>
+               {% endfor %}
+           </fieldset>
+           <div class="form-group">
+               <input class="btn btn-success" type="submit" value="Submit" />
+           </div>
     </form>
     {% endif %}
 {% endblock content %}

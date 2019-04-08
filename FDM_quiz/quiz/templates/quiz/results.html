@@ -9,16 +9,12 @@
            <th>Category</th>
            <th>Score</th>
        </tr>
-        {% for u in users_list %}
-            {% if username == u %}
-            {% for c in category_list %}
+        {% if user.is_authenticated %}
             <tr>
-                <td>{{ u.username }}</td>
+                <td>{{ user.username }}</td>
                 <td>{{ c.category }}/td>
                 <td>{{ u.score }}</td>
             </tr>
-            {% endfor %}
-            {% endif %}
-        {% endfor %}
+        {% endif %}
     </table>
 {% endblock content %}

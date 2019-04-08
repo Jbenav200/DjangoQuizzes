@@ -47,3 +47,12 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UserScore(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    score = models.IntegerField()
+
+    def __str__(self):
+        return self.score, self.username, self.category
