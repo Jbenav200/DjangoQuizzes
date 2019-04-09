@@ -1,4 +1,14 @@
 {% extends "quiz/base.html" %}
 {% block content %}
-    <h1>Quizzes!</h1>
+    <h1>{{title}}</h1>
+    {% if categories_list %}
+        <nav class="navbar navbar-expand-md navbar-dark bg-bluer">
+            <ul class="navbar-nav mr-auto margin-auto">
+                {% for category in categories_list %}
+                <li class="nav-item"><a class="nav-item nav-link" href="{{ category.name.lower }}">{{category.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+
 {% endblock content %}

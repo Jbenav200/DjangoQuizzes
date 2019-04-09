@@ -1,0 +1,12 @@
+{% extends 'quiz/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Books</h2>
+    <form action="/quizzes/books" method="post">
+      {% csrf_token %}
+       <fieldset class="form-group">
+           {{ form|crispy }}
+           <input class="btn btn-success" type="submit" value="Submit" />
+       </fieldset>
+    </form>
+{% endblock content %}
