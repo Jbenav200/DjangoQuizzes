@@ -47,26 +47,32 @@ def art(request):
 
     if request.method == 'POST':
         form = UserScoreArtForm(request.POST)
-        if form.is_valid():
-            ml = request.POST['ml']
-            vg = request.POST['vg']
-            # user_score to be placed here
-            if ml == "7":
-                if vg == "10":
-                    username = request.user.username
-                    score = 20
-                    a = UserScore()
-                    a.username = username
-                    categories = Category.objects.filter(name='Art')
-                    for c in categories:
-                        a.category = c
-                    a.score = score
-                    a.save()
-                    return redirect('/results')
-                else:
-                    return redirect('/quizzes/art/')
-            else:
-                return redirect('/quizzes/art')
+    if form.is_valid():
+        ml = request.POST['ml']
+        vg = request.POST['vg']
+        # user_score to be placed here
+        if ml == "7" and vg == "10":
+            username = request.user.username
+            score = 20
+            a = UserScore()
+            a.username = username
+            categories = Category.objects.filter(name='Art')
+            for c in categories:
+                a.category = c
+            a.score = score
+            a.save()
+            return redirect('/results')
+        elif ml == "7" and "10" not in vg:
+            username = request.user.username
+            score = 10
+            a = UserScore()
+            a.username = username
+            categories = Category.objects.filter(name='Art')
+            for c in categories:
+                a.category = c
+            a.score = score
+            a.save()
+            return redirect('/results')
         else:
             return redirect('/quizzes/art')
     return render(request, 'quiz/art.html', context)
@@ -85,8 +91,7 @@ def history(request):
             w2 = request.POST['w2']
             w1 = request.POST['w1']
             # user_score to be placed here
-            if w2 == "1":
-                if w1 == "22":
+            if w2 == "1" and w1 == "22":
                     username = request.user.username
                     score = 20
                     a = UserScore()
@@ -97,8 +102,28 @@ def history(request):
                     a.score = score
                     a.save()
                     return redirect('/results')
-                else:
-                    return redirect('/quizzes/history')
+            elif w1 == "22" and "1" not in w2:
+                username = request.user.username
+                score = 10
+                a = UserScore()
+                a.username = username
+                categories = Category.objects.filter(name="History")
+                for c in categories:
+                    a.category = c
+                a.score = score
+                a.save()
+                return redirect('/results')
+            elif "22" not in w1 and w2 == "1":
+                username = request.user.username
+                score = 10
+                a = UserScore()
+                a.username = username
+                categories = Category.objects.filter(name="History")
+                for c in categories:
+                    a.category = c
+                a.score = score
+                a.save()
+                return redirect('/results')
             else:
                 return redirect('/quizzes/history')
         else:
@@ -118,8 +143,7 @@ def books(request):
         if form.is_valid():
             hp = request.POST['hp']
             wp = request.POST['wp']
-            if hp == "14":
-                if wp == "18":
+            if hp == "14" and wp == "18":
                     username = request.user.username
                     score = 20
                     a = UserScore()
@@ -130,8 +154,28 @@ def books(request):
                     a.score = score
                     a.save()
                     return redirect('/results')
-                else:
-                    return redirect('/results')
+            elif hp == "14" and "18" not in wp:
+                username = request.user.username
+                score = 10
+                a = UserScore()
+                a.username = username
+                categories = Category.objects.filter(name="Books")
+                for c in categories:
+                    a.category
+                a.score = score
+                a.save()
+                return redirect('/results')
+            elif "14" not in hp and wp == "18":
+                username = request.user.username
+                score = 10
+                a = UserScore()
+                a.username = username
+                categories = Category.objects.filter(name="Books")
+                for c in categories:
+                    a.category = c
+                a.score = score
+                a.save()
+                return redirect('/results')
             else:
                 return redirect('/quizzes/books')
     return render(request, 'quiz/books.html', context)
