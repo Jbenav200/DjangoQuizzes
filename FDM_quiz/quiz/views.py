@@ -172,7 +172,7 @@ def books(request):
                 a.username = username
                 categories = Category.objects.filter(name="Books")
                 for c in categories:
-                    a.category
+                    a.category = c
                 a.score = score
                 a.save()
                 return redirect('/results')
