@@ -14,10 +14,10 @@ class UserScoreArtForm(UserScoreForm):
 
     for q in question_list:
         if q.question_text == 'When did Van Gough Die?':
-            vg = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
+            vg = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id).order_by('choice_text'), label=q)
 
         if q.question_text == 'When was the Mona Lisa painted?':
-            ml = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
+            ml = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id).order_by('choice_text'), label=q)
 
     class Meta(UserScoreForm.Meta):
         fields = ['vg', 'ml']
@@ -28,9 +28,9 @@ class UserScoreHistoryForm(UserScoreForm):
     choice_list = Choice.objects.none()
     for q in question_list:
         if q.question_text == 'When did World War II end?':
-            w2 = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
+            w2 = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id).order_by('choice_text'), label=q)
         if q.question_text == 'When did World War I end?':
-            w1 = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
+            w1 = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id).order_by('choice_text'), label=q)
 
     class Meta(UserScoreForm.Meta):
         fields = ['w2', 'w1']
@@ -41,9 +41,9 @@ class UserScoreBooksForm(UserScoreForm):
     choice_list = Choice.objects.none()
     for q in question_list:
         if q.question_text == 'Who wrote the Harry Potter series?':
-            hp = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
+            hp = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id).order_by('choice_text'), label=q)
         if q.question_text == 'Who wrote the original Winnie The Pooh series?':
-            wp = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id), label=q)
+            wp = forms.ModelMultipleChoiceField(queryset=Choice.objects.filter(question_id=q.id).order_by('choice_text'), label=q)
 
     class Meta(UserScoreForm.Meta):
         fields = ['hp', 'wp']

@@ -48,13 +48,11 @@ def art(request):
     if request.method == 'POST':
         form = UserScoreArtForm(request.POST)
         if form.is_valid():
-            ml = form.cleaned_data['ml']
-            vg = form.cleaned_data['vg']
-            form.instance.ml = ml
-            form.instance.vg = vg
+            ml = request.POST['ml']
+            vg = request.POST['vg']
             # user_score to be placed here
-            if ml:
-                if vg:
+            if ml == "7":
+                if vg == "10":
                     username = request.user.username
                     score = 20
                     a = UserScore()
@@ -66,9 +64,9 @@ def art(request):
                     a.save()
                     return redirect('/results')
                 else:
-                    return redirect('/ranking')
+                    return redirect('/quizzes/art/')
             else:
-                return redirect('/')
+                return redirect('/quizzes/art')
         else:
             return redirect('/quizzes/art')
     return render(request, 'quiz/art.html', context)
@@ -84,13 +82,11 @@ def history(request):
     if request.method == 'POST':
         form = UserScoreHistoryForm(request.POST)
         if form.is_valid():
-            w2 = form.cleaned_data['w2']
-            w1 = form.cleaned_data['w1']
-            form.instance.mw2 = w2
-            form.instance.w1 = w1
+            w2 = request.POST['w2']
+            w1 = request.POST['w1']
             # user_score to be placed here
-            if w2:
-                if w1:
+            if w2 == "1":
+                if w1 == "22":
                     username = request.user.username
                     score = 20
                     a = UserScore()
@@ -102,9 +98,9 @@ def history(request):
                     a.save()
                     return redirect('/results')
                 else:
-                    return redirect('/ranking')
+                    return redirect('/quizzes/history')
             else:
-                return redirect('/')
+                return redirect('/quizzes/history')
         else:
             return redirect('/quizzes/history')
     return render(request, 'quiz/history.html', context)
@@ -120,12 +116,10 @@ def books(request):
     if request.method == 'POST':
         form = UserScoreBooksForm(request.POST)
         if form.is_valid():
-            hp = form.cleaned_data['hp']
-            wp = form.cleaned_data['wp']
-            form.instance.hp = hp
-            form.instance.wp = wp
-            if hp:
-                if wp:
+            hp = request.POST['hp']
+            wp = request.POST['wp']
+            if hp == "14":
+                if wp == "18":
                     username = request.user.username
                     score = 20
                     a = UserScore()
@@ -136,8 +130,10 @@ def books(request):
                     a.score = score
                     a.save()
                     return redirect('/results')
-            return redirect('/results')
-        return redirect('/quizzes/books')
+                else:
+                    return redirect('/results')
+            else:
+                return redirect('/quizzes/books')
     return render(request, 'quiz/books.html', context)
 
 
