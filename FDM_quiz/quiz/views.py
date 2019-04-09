@@ -73,6 +73,17 @@ def art(request):
             a.score = score
             a.save()
             return redirect('/results')
+        elif "7" not in ml and vg == "10":
+            username = request.user.username
+            score = 10
+            a = UserScore()
+            a.username = username
+            categories = Category.objects.filter(name="Art")
+            for c in categories:
+                a.category = c
+            a.score = score
+            a.save()
+            return redirect('/results')
         else:
             return redirect('/quizzes/art')
     return render(request, 'quiz/art.html', context)
