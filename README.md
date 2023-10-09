@@ -6,5 +6,5 @@ python manage.py runserver 127.0.0.1:8080
 
 
 Contribubtors:
-- [Jbenav200](github.com/jbenav200)
-- [ErgoEuan](github.com/ergoeuan)
+- [Jbenav200](https://www.github.com/jbenav200)
+- [ErgoEuan](https://www.github.com/ergoeuan)
